@@ -36,10 +36,13 @@ example:
 
 ### Index
 
-`GET /boats` - This endpoint brings to you a list with all your boats registered in the api. - You can search for model and location
+`GET /boats` 
 
-    example:
-    ```curl -X GET \
+- This endpoint brings to you a list with all your boats registered in the api. - You can search for model and location
 
+example:
+```
+    curl -X GET \
 'https://boat-seeker.herokuapp.com/boats?model=Boat&longitude=102.2210023&latitude=42.3120905&radius=1000' \
- -H 'Content-Type: application/json'```
+ -H 'Content-Type: application/json'
+```
