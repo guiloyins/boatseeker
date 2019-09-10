@@ -16,6 +16,7 @@ RSpec.describe Boat, type: :model do
 
     context 'with latitude and longitude' do
       let(:params) { { model: 'Zxa', length: 5, longitude: '103.2210023', latitude: '42.3120905' } }
+
       it 'sets the lonlat field with the lat and lon' do
         boat.save
         expect(boat.lonlat.to_s).to eq('POINT (103.2210023 42.3120905)')

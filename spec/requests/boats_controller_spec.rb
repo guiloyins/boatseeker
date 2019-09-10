@@ -6,7 +6,7 @@ RSpec.describe 'Boat API', type: :request do
   include ActiveSupport::Testing::TimeHelpers
 
   before do
-    travel_to Time.new(2019, 0o5, 13, 0o1, 0o4, 44)
+    travel_to Time.new(2019, 05, 13, 01, 04, 44)
   end
 
   after do
@@ -39,7 +39,7 @@ RSpec.describe 'Boat API', type: :request do
           "updated_at": '2019-05-13T05:04:44.000Z'
         }].to_json
       end
-      let(:params) { '?latitude=22.31291&longitude=114.22192&radius=8046&q[model_eq]=boat' }
+      let(:params) { '?latitude=22.31291&longitude=114.22192&radius=8046&model=boat' }
       it 'returns only the near boat with the same model' do
         action
         expect(response.body).to eq(expected_response)

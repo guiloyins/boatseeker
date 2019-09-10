@@ -1,0 +1,21 @@
+AllCops:
+  DisabledByDefault: true
+  TargetRubyVersion: 2.6
+  Exclude:
+    - log/**/*
+    - db/**/*
+    - bin/*
+    - config/routes.rb
+
+Documentation:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 90
+  Exclude:
+    - spec/**/*
+    - config/**/*
+    - lib/tasks/**/*
+
+Layout/AlignParameters:
+  EnforcedStyle: with_fixed_indentation

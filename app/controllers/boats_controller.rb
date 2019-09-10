@@ -2,7 +2,8 @@ class BoatsController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
 
   def index
-    query = Boat.ransack(params[:q], within: [params[:latitude], params[:longitude], params[:radius]])
+    query = Boat.ransack(model_eq: params[:model], length_eq: params[:length],
+                      within: [params[:latitude], params[:longitude], params[:radius]])
     render json: query.result(distinct: true)
   end
 
