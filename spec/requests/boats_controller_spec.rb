@@ -13,11 +13,34 @@ RSpec.describe 'Boat API', type: :request do
     travel_back
   end
 
+  describe 'GET #index' do
+    let!(:boat) { create(:boat, model: 'boat', latitude: '22.3129115', longitude: '114.2219923') }
+    let!(:boat2) { create(:boat, model: 'boat1', latitude: '22.3129115', longitude: '114.2219923') }
+    let!(:boat_too_far) { create(:boat, latitude: '23.3129115', longitude: '113.2219923') }
+    let(:action) { get "/boats#{params}" }
+
+    context 'when no parameters is given' do
+      let(:params) { '' }
+      it 'returns all boats' do
+        action
+        expect(JSON.parse(response.body).length).to eq(3)
+      end
+    end
+
+    context 'when searching for location and model' do
+      let(:params) { '?latitude=22.31291&longitude=114.22192&radius=8046&q[model_eq]=boat' }
+      it 'returns only the near boat with the same model' do
+        action
+        expect(response.body).to eq([boat].to_json)
+      end
+    end
+  end
+
   describe 'POST #create' do
     let(:action) { post '/boats', params: params, xhr: true }
 
     context 'when all parameters are present' do
-      let(:params) { { model: 'Zxa', length: 5, latitude: '103.2210023', longitude: '42.3120905' } }
+      let(:params) { { model: 'Zxa', length: 5, longitude: '103.2210023', latitude: '42.3120905' } }
       let(:expected_response) do
         {
           "id": Boat.first.id,
