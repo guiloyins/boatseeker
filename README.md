@@ -1,24 +1,45 @@
-# README
+## BoatSeeker
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+If you ever look for a way to be able to manage your boat fleet in a simple and straightforward API, the BoatSeeker API is for you.
+With this simple app you can not only create and delete, but also visualize, and list with search features!
 
-Things you may want to cover:
+Despite the simplicity of the api, I fell the need to write some documentation as you will find out below.
+Also, I deployed this app on Heroku. The examples in the documentation are pointing to the project there.
 
-* Ruby version
+### Create
 
-* System dependencies
+`POST /boats/`
 
-* Configuration
+- The endpoint the allows you to create a new boat, if valid.
+- model, length, latitude, and longitude are mandatory.
 
-* Database creation
+example:
+`curl -X POST \ 'https://boat-seeker.herokuapp.com/boats?model=Boat&length=15&longitude=102.2210023&latitude=42.3120905'`
 
-* Database initialization
+### Show
 
-* How to run the test suite
+`GET /boats/:id`
 
-* Services (job queues, cache servers, search engines, etc.)
+- The endpoint that allows you to see your boat (see its parameters, not with an actual image. Sorry!)
 
-* Deployment instructions
+example:
+`curl -X GET 'https://boat-seeker.herokuapp.com/boats/2'`
 
-* ...
+### Destroy
+
+`DELETE /boats/:id`
+
+- Use with care. This endpoint is known for delete the boat register in the database. (as expected)
+
+example:
+`curl -X DELETE 'https://boat-seeker.herokuapp.com/boats/2'`
+
+### Index
+
+`GET /boats` - This endpoint brings to you a list with all your boats registered in the api. - You can search for model and location
+
+    example:
+    ```curl -X GET \
+
+'https://boat-seeker.herokuapp.com/boats?model=Boat&longitude=102.2210023&latitude=42.3120905&radius=1000' \
+ -H 'Content-Type: application/json'```
