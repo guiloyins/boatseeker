@@ -29,7 +29,6 @@ RSpec.describe 'Boat API', type: :request do
         }.to_json
       end
 
-
       it 'creates the boat' do
         expect { action }.to change(Boat, :count).by(1)
       end
@@ -84,10 +83,40 @@ RSpec.describe 'Boat API', type: :request do
           "error": "Couldn't find Boat with 'id'=foo"
         }
       end
-      before { get "/boats/foo" }
+      before { get '/boats/foo' }
 
       it 'returns the error message' do
         expect(response.body).to eq(expected_response.to_json)
+      end
+    end
+  end
+
+  describe 'DELETE #delete' do
+    let!(:boat) { create(:boat) }
+
+    describe 'when the boat exists' do
+      let(:action) { delete "/boats/#{boat.id}" }
+
+      it 'delete the boat' do
+        expect { action }.to change(Boat, :count).by(-1)
+      end
+
+      it 'returns success' do
+        action
+        expect(response.status).to eq(204)
+      end
+    end
+
+    describe 'when the boat does not exists' do
+      let(:action) { delete '/boats/foo' }
+
+      it 'does not delete the boat' do
+        expect { action }.to_not change(Boat, :count)
+      end
+
+      it 'returns success' do
+        action
+        expect(response.status).to eq(404)
       end
     end
   end

@@ -12,8 +12,10 @@ class BoatsController < ApplicationController
 
   def show
     render json: Boat.find(params[:id])
-  rescue ActiveRecord::RecordNotFound, e
-    render json: { error: e.message }, status: :not_found
+  end
+
+  def destroy
+    Boat.find(params[:id]).destroy
   end
 
   private
