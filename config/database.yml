@@ -1,22 +1,6 @@
-# PostgreSQL. Versions 9.3 and up are supported.
-#
-# Install the pg driver:
-#   gem install pg
-# On macOS with Homebrew:
-#   gem install pg -- --with-pg-config=/usr/local/bin/pg_config
-# On macOS with MacPorts:
-#   gem install pg -- --with-pg-config=/opt/local/lib/postgresql84/bin/pg_config
-# On Windows:
-#   gem install pg
-#       Choose the win32 build.
-#       Install PostgreSQL and put its /bin directory on your path.
-#
-# Configure Using Gemfile
-# gem 'pg'
-#
 default: &default
-  adapter: postgresql
   encoding: unicode
+  adapter: postgis
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
@@ -24,7 +8,6 @@ default: &default
 development:
   <<: *default
   database: boatseeker_development
-  adapter: postgis
   username: postgres
   port: 5432
   schema_search_path: public, postgis
@@ -32,7 +15,6 @@ development:
 test:
   <<: *default
   database: boatseeker_test
-  adapter: postgis
   username: postgres
   port: 5432
   schema_search_path: public, postgis
@@ -57,7 +39,4 @@ test:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
 production:
-  <<: *default
-  database: boatseeker_production
-  username: boatseeker
-  password: <%= ENV['BOATSEEKER_DATABASE_PASSWORD'] %>
+  url: <%= ENV.fetch('DATABASE_URL', '').sub(/^postgres/, "postgis") %>
