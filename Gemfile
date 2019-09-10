@@ -7,6 +7,7 @@ ruby '2.6.3'
 gem 'rails', '~> 6.0.0'
 # Use postgresql as the database for Active Record
 gem 'activerecord-postgis-adapter', '~> 6.0.0'
+gem 'active_model_serializers',   '0.10.10'
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'

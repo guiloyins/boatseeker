@@ -28,10 +28,21 @@ RSpec.describe 'Boat API', type: :request do
     end
 
     context 'when searching for location and model' do
+      let(:expected_response) do
+        [{
+          "id": boat.id,
+          "model": 'boat',
+          "length": 5,
+          "latitude": 22.3129115,
+          "longitude": 114.2219923,
+          "created_at": '2019-05-13T05:04:44.000Z',
+          "updated_at": '2019-05-13T05:04:44.000Z'
+        }].to_json
+      end
       let(:params) { '?latitude=22.31291&longitude=114.22192&radius=8046&q[model_eq]=boat' }
       it 'returns only the near boat with the same model' do
         action
-        expect(response.body).to eq([boat].to_json)
+        expect(response.body).to eq(expected_response)
       end
     end
   end
@@ -46,7 +57,8 @@ RSpec.describe 'Boat API', type: :request do
           "id": Boat.first.id,
           "model": 'Zxa',
           "length": 5,
-          "lonlat": 'POINT (103.2210023 42.3120905)',
+          "latitude": 42.3120905,
+          "longitude": 103.2210023,
           "created_at": '2019-05-13T05:04:44.000Z',
           "updated_at": '2019-05-13T05:04:44.000Z'
         }.to_json
@@ -88,7 +100,8 @@ RSpec.describe 'Boat API', type: :request do
           "id": Boat.first.id,
           "model": 'Zxa',
           "length": 5,
-          "lonlat": 'POINT (103.2210023 42.3120905)',
+          "latitude": 42.3120905,
+          "longitude": 103.2210023,
           "created_at": '2019-05-13T05:04:44.000Z',
           "updated_at": '2019-05-13T05:04:44.000Z'
         }
