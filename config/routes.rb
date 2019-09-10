@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  resource :boats, only: [:create]
+  resources :boats, only: [:create, :show]
 end
